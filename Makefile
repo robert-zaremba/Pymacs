@@ -23,7 +23,8 @@ install: prepare
 	$(PYSETUP) install
 
 prepare:
-	$(PPPP) Pymacs.py.in pppp.rst.in pymacs.el.in pymacs.rst.in contrib tests
+	EMACS="$(EMACS)" PYTHON="$(PYTHON)" \
+	  $(PPPP) Pymacs.py.in pppp.rst.in pymacs.el.in pymacs.rst.in contrib tests
 
 clean: clean-debug
 	rm -rf build* contrib/rebox/build
@@ -34,7 +35,8 @@ clean-debug:
 	rm -f tests/debug-protocol tests/debug-signals
 
 pppp.pdf: pppp.rst.in
-	$(PPPP) pppp.rst.in
+	EMACS="$(EMACS)" PYTHON="$(PYTHON)" \
+	  $(PPPP) pppp.rst.in
 	rm -rf tmp-pdf
 	mkdir tmp-pdf
 	$(RST2LATEX) --use-latex-toc --input-encoding=UTF-8 \
@@ -45,7 +47,8 @@ pppp.pdf: pppp.rst.in
 	rm -rf tmp-pdf
 
 pymacs.pdf: pymacs.rst.in
-	$(PPPP) pymacs.rst.in
+	EMACS="$(EMACS)" PYTHON="$(PYTHON)" \
+	  $(PPPP) pymacs.rst.in
 	rm -rf tmp-pdf
 	mkdir tmp-pdf
 	$(RST2LATEX) --use-latex-toc --input-encoding=UTF-8 \
